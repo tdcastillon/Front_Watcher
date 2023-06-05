@@ -1,0 +1,25 @@
+// import font from './assets/fonts/Mainstay.ttf';
+
+@font-face {
+  font-family: 'Jupiteroid-Regular';
+  src: url('./assets/fonts/Jupiteroid-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'ComicHelvetic_Medium';
+  src: url('./assets/fonts/ComicHelvetic_Medium.otf') format('opentype');
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'ComicHelvetic_Medium';
+  background-color: #fefefe;
+  color: #3D3639;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

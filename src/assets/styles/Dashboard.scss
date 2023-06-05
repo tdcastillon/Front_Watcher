@@ -1,0 +1,50 @@
+.Dashboard_Home {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh);
+    color: #1D1D1D;
+    width: 100vw;
+}
+
+.Dashboard_Header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.Dashboard_Header_Logo {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 96px;
+    object-fit: fill;
+    flex: 1;
+    justify-content: center;
+}
+
+.Dashboard_Header_Title {
+    flex: 3;
+    font-size: 1em;
+    font-weight: bolder;
+    color: #131112;
+}
+
+.Dashboard_Content {
+    flex: 1;
+    margin: 0 10%;
+}
+
+.Dashboard_Content_Title {
+    font-size: 3em;
+    font-weight: 500;
+    align-self: center;
+    text-decoration: underline;
+}
+
+.Dashboard_Content_Last_Movies_List_Empty {
+    font-size: 1.5em;
+    font-weight: 500;
+    font-style: italic;
+    align-self: center;
+}

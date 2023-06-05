@@ -1,0 +1,89 @@
+.File_Header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 250px !important;
+    background-color: #96d0df;
+}
+
+.Header_Left {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex: 1;
+}
+
+.Header_Poster {
+    object-fit: contain;
+    width: 100%;
+}
+
+.Header_Right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+}
+
+.File_Content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    height: 100%;
+    width: 98%;
+    align-items: center;
+    align-self: center;
+}
+
+.Content_Slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    height: 100%;
+    width: 98%;
+    align-self: center;
+}
+
+.Content_BigText {
+    font-size: 1.5em;
+    font-weight: bolder;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.Content_Text {
+    font-size: 1em;
+}
+
+.Content_Slider_People {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.Content_People {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+}
+
+.cast {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+*{
+    -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+    display: none;
+}

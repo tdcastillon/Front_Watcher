@@ -1,0 +1,64 @@
+import { Card, CardContent, CardMedia, Typography, CardActions, Button, Box } from "@mui/material";
+import logo from '../../assets/logo/TheWatcher.png';
+
+function CrewCard (props: any) {
+
+    const getImage = (path: string) => {
+        if (path == null) {
+            return logo;
+        } else {
+            return "https://image.tmdb.org/t/p/w500" + path;
+        }
+    }
+
+    const displayJob = (job: [String]) => {
+        let fr_job = job.map((job) => FrJob(job));
+        let display = '';
+        for (let i = 0; i < fr_job.length; i++) {
+            display += fr_job[i] + ', ';
+        }
+        return display.slice(0, -2);
+    }
+
+    const FrJob = (job: String) => {
+        switch (job) {
+            case 'Director':
+                return 'Réalisateur';
+            case 'Screenplay':
+                return 'Scénariste';
+            case 'Writer':
+                return 'Scénariste';
+            case 'Original Music Composer':
+                return 'Compositeur';
+            default:
+                return job;
+        }
+    }
+
+    return (
+        <Box display="inline-block" style={{ margin: '10px 0' }}>
+            <Card sx={{ width: '175px !important', height: '350px !important', flex: 1, backgroundColor: '#f5f5f5', boxShadow: '5px 5px 5px -5px #2d2a32' }}>
+                <CardMedia
+                    component="img"
+                    height="140"
+                    image={getImage(props.profile_path)}
+                    alt={props.name}
+                    style={{ objectFit: 'contain' }}
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {props.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {displayJob(props.job)}
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <Button size="small"> Afficher plus </Button>
+                </CardActions>
+            </Card>
+        </Box>
+    )
+}
+
+export default CrewCard;

@@ -1,0 +1,38 @@
+.SideBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20%;
+    height: 100%;
+    background-color: #344C98;
+}
+
+.SideBar_Header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 10%;
+    width: 100%;
+}
+
+.SideBar_Content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.SideBar_Item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 10%;
+    width: 100%;
+    color: #FFFFFF;
+    font-size: 1.5em;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+}

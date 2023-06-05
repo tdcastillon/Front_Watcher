@@ -1,0 +1,49 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.empty {
+    margin: 10px 0;
+}
+
+.Form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    margin: 0 40% auto;
+}
+
+input {
+    margin: 10px 0;
+    font-size: 2rem;
+    font-weight: 500;
+    border-radius: 8px;
+    border: 1px solid #1985A1;
+}
+
+input:focus {
+    outline: none;
+}
+
+.error {
+    color: red;
+    font-size: 1rem;
+    font-weight: 500;
+    align-self: center;
+}
+
+.submit_button {
+    background-color: #1985A1;
+    font-size: 2rem;
+    font-weight: bolder;  
+}
+
+.link {
+    margin-top: 20px;
+    align-self: flex-end;
+    color: #1985A1;
+    text-decoration: none;
+}
