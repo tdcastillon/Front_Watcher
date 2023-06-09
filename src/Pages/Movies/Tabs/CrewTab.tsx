@@ -2,14 +2,11 @@ import React from 'react'
 import { CrewMember } from '../../../assets/interfaces/movie_interfaces'
 import CrewCard from '../Movie_Compents/ActorCard'
 
-import { useNavigate } from 'react-router-dom';
 import { identify_principal } from '../../../assets/functions/crew_functions';
 
 function CrewTab(props :{ movie_id: String, movieCrew: CrewMember[], movieInfo: any }) {
 
-    const { movie_id, movieCrew, movieInfo } = props;
-
-    const navigation = useNavigate();
+    const { movieCrew } = props;
 
     return (
         <div className='File_Content tab'>

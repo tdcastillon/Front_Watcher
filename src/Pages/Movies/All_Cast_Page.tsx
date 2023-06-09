@@ -17,7 +17,7 @@ const AllCastPage = () => {
         }
         // erase all uncredited actors
         setMovieCast(location.state.cast.filter((actor: any) => !actor.character.includes('(uncredited)')));
-    }, [movieCast])
+    }, [movieCast, location.state.cast, navigation]);
 
     interface Actor {
         id: String,
