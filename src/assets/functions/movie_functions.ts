@@ -1,6 +1,3 @@
-import { CrewMember } from "../interfaces/movie_interfaces";
-
-
 const getRating = (rating: Number) : String => {
     return rating.toString();
 }
