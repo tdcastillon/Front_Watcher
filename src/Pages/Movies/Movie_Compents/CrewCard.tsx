@@ -1,5 +1,5 @@
 import { Card, CardContent, CardMedia, Typography, CardActions, Button, Box } from "@mui/material";
-import logo from '../../assets/logo/TheWatcher.png';
+import logo from '../../../assets/logo/TheWatcher.png';
 
 function CrewCard (props: any) {
 
@@ -37,7 +37,7 @@ function CrewCard (props: any) {
 
     return (
         <Box display="inline-block" style={{ margin: '10px 0' }}>
-            <Card sx={{ width: '175px !important', height: '350px !important', flex: 1, backgroundColor: '#f5f5f5', boxShadow: '5px 5px 5px -5px #2d2a32' }}>
+            <Card sx={{ width: '175px !important', height: '350px !important', flex: 1, backgroundColor: '#F0F0F0', boxShadow: '5px 5px 5px -5px #2d2a32' }}>
                 <CardMedia
                     component="img"
                     height="140"
