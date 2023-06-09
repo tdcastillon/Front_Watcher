@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactModal from 'react-modal';
 import Popup from '../../assets/special_components/Popup';
-import { Button, Tabs, Typography, Tab, Box } from '@mui/material';
+import { Button, Tabs, Tab } from '@mui/material';
 
 import '../../assets/styles/Movie_Item.scss';
 import '../../assets/styles/Popup.scss';
@@ -10,9 +10,8 @@ import TabPanel from '../../assets/special_components/TabPanel';
 
 import * as mi from '../../assets/interfaces/movie_interfaces';
 import { getRating, getStatus } from '../../assets/functions/movie_functions';
-
-
-
+import ActorTab from './Tabs/ActorTab';
+import CrewTab from './Tabs/CrewTab';
 
 function Movie_Page(props: any) {
 
@@ -115,11 +114,6 @@ function Movie_Page(props: any) {
         window.location.reload();
         setOpenPopup(false);
     }
-    
-
-
-
-    
 
     return (
         <div className='Home'>
@@ -214,10 +208,10 @@ function Movie_Page(props: any) {
                     textColor="primary"
                     onChange={(event, newValue) => setValue(newValue)}
                     style={{
-                        width: '80%',
+                        width: '90%',
                         alignSelf: 'center',
                         margin: '0 auto',
-                        marginBottom: '1rem',
+                        marginBottom: '2px',
                         display: 'flex',
                         fontSize: '1.2em',
                         backgroundColor: '#96d0df',
@@ -229,61 +223,12 @@ function Movie_Page(props: any) {
                     <Tab label="Equipe" style={{ flex: 1 }}/>
                 </Tabs>
                 <TabPanel value={value} index={0}>
-                    <div className='Content_Slide'>
-                        <p> This is the slide for the casting </p>
-                    </div>
+                    <ActorTab movie_id={movie_id} movieCast={movieCast} movieInfo={movieInfo}/>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <div className='Content_Slide'>
-                        <p> This is the slide for the crew </p>
-                    </div>
+                    <CrewTab movie_id={movie_id} movieCrew={movieCrew} movieInfo={movieInfo}/>
                 </TabPanel>
             </div>
-
-            {/* <div className='File_Content'>
-                <div className='Content_Slide'>
-                    <p className='Content_BigText underline'> Direction </p>
-                    <div className='Content_Slider_People'>
-                        {
-                            identify_principal(movieCrew).map((person: CrewMember) => {
-                                return (
-                                    <CrewCard key={person.id} id={person.id} name={person.name} job={person.job} profile_path={person.profile_path}/>
-                                )
-                            })
-                        }
-                    </div>
-                </div>
-                <div className='Content_Slide'>
-                    <p className='Content_BigText underline'> Casting </p>
-                    <div className='Content_Slider_People'>
-                        {
-                            identify_actor(movieCast).slice(0, 5).map((person: Actor) => {
-                                return (
-                                    <ActorCard key={person.id} id={person.id} name={person.name} character={person.character} profile_path={person.profile_path}/>
-                                )
-                            })
-                        }
-                    </div>
-                </div>
-            </div>
-            <div style={{ height: '25px' }}></div>
-            <Button 
-            onClick={() => navigation('/movie/' + movie_id + '/cast', {
-                state: {
-                    movie_id: movie_id,
-                    cast: movieCast,
-                    title: movieInfo.title,
-                }
-            })}
-            style={{
-                backgroundColor: 'transparent',
-                border: 'none',
-                fontSize: '1.2em',
-                width: '15%',
-                alignSelf: 'center',
-            }}>
-            See All Cast 
-            </Button> */}
         </div>
     )
 }

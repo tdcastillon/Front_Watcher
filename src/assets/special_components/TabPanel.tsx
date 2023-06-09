@@ -17,11 +17,12 @@ function TabPanel(props: TabPanelProps) {
         id={`simple-tabpanel-${index}`}
         aria-labelledby={`simple-tab-${index}`}
         {...other}
+        style={{ width: '90%', height: 'auto', margin: 'auto', border: '1px solid #EAF2EF', borderRadius: '5px', backgroundColor: '#FBFCFB', boxShadow: '5px 5px 5px -5px #2d2a32', marginBottom: '1rem' }}
       >
         {value === index && (
-          <Box sx={{ p: 3 }}>
+          <div style={{ padding: '1rem', paddingBottom: '0.5rem' }}>
             <Typography>{children}</Typography>
-          </Box>
+          </div>
         )}
       </div>
     );
