@@ -1,12 +1,12 @@
 import React from 'react'
 import { CrewMember } from '../../../assets/interfaces/crew_interfaces'
-import CrewCard from '../Movie_Components/ActorCard'
+import CrewCard from '../Movie_Components/CrewCard'
 
 import { identify_principal } from '../../../assets/functions/crew_functions';
 
 function CrewTab(props :{ movie_id: String, movieCrew: CrewMember[], movieInfo: any }) {
 
-    const { movieCrew } = props;
+   const { movieCrew } = props;
 
     return (
         <div className='File_Content tab'>
