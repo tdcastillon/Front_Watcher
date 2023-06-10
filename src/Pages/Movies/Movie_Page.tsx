@@ -111,7 +111,6 @@ function Movie_Page(props: any) {
     }, [movie_id, navigation, movieInfoUser]);
 
     const closePopup = () => {
-        window.location.reload();
         setOpenPopup(false);
     }
 

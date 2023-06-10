@@ -43,7 +43,7 @@ function CrewCard (props: any) {
                     height="140"
                     image={getImage(props.profile_path)}
                     alt={props.name}
-                    style={{ objectFit: 'contain' }}
+                    style={{ objectFit: 'contain', margin: '5px' }}
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
