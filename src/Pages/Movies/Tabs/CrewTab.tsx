@@ -1,5 +1,5 @@
 import React from 'react'
-import { CrewMember } from '../../../assets/interfaces/movie_interfaces'
+import { CrewMember } from '../../../assets/interfaces/crew_interfaces'
 import CrewCard from '../Movie_Compents/ActorCard'
 
 import { identify_principal } from '../../../assets/functions/crew_functions';

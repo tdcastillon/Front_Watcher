@@ -1,4 +1,4 @@
-import { Actor } from "../interfaces/movie_interfaces";
+import { Actor } from "../interfaces/actor_interfaces";
 
 const identify_actor = (people: any) => {
     let principal_cast : Actor[] = [];

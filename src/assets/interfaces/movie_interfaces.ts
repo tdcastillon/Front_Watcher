@@ -28,17 +28,3 @@ export interface MovieInfoUser {
     status: String,
     favorite: Boolean,
 }
-
-export interface CrewMember {
-    id: String,
-    name: String,
-    job: [String],
-    profile_path: String,
-}
-
-export interface Actor {
-    id: String,
-    name: String,
-    character: String,
-    profile_path: String,
-}

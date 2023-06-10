@@ -1,7 +1,7 @@
 import { Button } from '@mui/material'
 import React from 'react'
 import { identify_actor } from '../../../assets/functions/actor_functions'
-import { Actor } from '../../../assets/interfaces/movie_interfaces'
+import { Actor } from '../../../assets/interfaces/actor_interfaces'
 import ActorCard from '../Movie_Compents/ActorCard'
 
 import { useNavigate } from 'react-router-dom';

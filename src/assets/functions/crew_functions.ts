@@ -1,4 +1,4 @@
-import { CrewMember } from "../interfaces/movie_interfaces";
+import { CrewMember } from "../interfaces/crew_interfaces";
 
 const identify_principal = (people: any) => {
     let principal_cast : CrewMember[] = [];
