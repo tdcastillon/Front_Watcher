@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import '../../assets/styles/Movie_Item.scss';
-import ActorCard from './ActorCard';
+import ActorCard from './Movie_Components/ActorCard';
 
 const AllCastPage = () => {
     const navigation = useNavigate();
@@ -12,12 +12,12 @@ const AllCastPage = () => {
     const [ movieCast, setMovieCast ] = useState<any[]>([]);
     
     useEffect(() => {
-        if ((localStorage.getItem('token') == null) || (localStorage.getItem('token') == '')) {
+        if ((localStorage.getItem('token') === null) || (localStorage.getItem('token') === '')) {
             navigation('/');
         }
         // erase all uncredited actors
         setMovieCast(location.state.cast.filter((actor: any) => !actor.character.includes('(uncredited)')));
-    }, [movieCast])
+    }, [movieCast, location.state.cast, navigation]);
 
     interface Actor {
         id: String,

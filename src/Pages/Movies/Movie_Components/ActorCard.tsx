@@ -1,5 +1,5 @@
 import { Card, CardContent, CardMedia, CardActions, Typography, Button, Box } from "@mui/material";
-import logo from '../../assets/logo/TheWatcher.png';
+import logo from '../../../assets/logo/TheWatcher.png';
 
 
 function ActorCard (props: any) {
@@ -14,13 +14,13 @@ function ActorCard (props: any) {
 
     return (
         <Box display="inline-block" style={{ margin: '10px 5px' }}>
-            <Card sx={{ width: '175px !important', height: '350px !important', flex: 1, backgroundColor: '#f5f5f5', boxShadow: '5px 5px 5px -5px #2d2a32' }}>
+            <Card sx={{ width: '175px !important', height: '350px !important', flex: 1, backgroundColor: '#F0F0F0', boxShadow: '5px 5px 5px -5px #2d2a32' }}>
                 <CardMedia
                     component="img"
                     height="140"
                     image={getImage(props.profile_path)}
                     alt={props.name}
-                    style={{ objectFit: 'contain' }}
+                    style={{ objectFit: 'contain', margin: '5px' }}
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">

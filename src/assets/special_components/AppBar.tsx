@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 
 import CameraLogo from '../logo/camera_logo.png';
+import { MdExitToApp } from 'react-icons/md';
 const pages = [{
     name: 'Recherche des films',
     path: '/search_movies'
@@ -139,6 +140,19 @@ function ResponsiveAppBar() {
           >
             PROFIL
           </Typography>
+          <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={() => {
+                localStorage.clear();
+                window.location.href = '/'
+              }}
+              color="inherit"
+          >
+            <MdExitToApp />
+          </IconButton>
         </Toolbar>
       </Container>
     </AppBar>
