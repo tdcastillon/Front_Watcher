@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import '../../assets/styles/Movie_Item.scss';
-import ActorCard from './Movie_Compents/ActorCard';
+import ActorCard from './Movie_Components/ActorCard';
 
 const AllCastPage = () => {
     const navigation = useNavigate();
