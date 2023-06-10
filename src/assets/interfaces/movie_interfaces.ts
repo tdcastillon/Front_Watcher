@@ -1,23 +1,23 @@
 export interface Collection {
-    id: String,
-    name: String,
+    id: string,
+    name: string,
 }
 
 export interface Genre {
-    id: String,
-    name: String,
+    id: string,
+    name: string,
 }
 
 export interface MovieInfoI {
-    id: String,
-    title: String,
-    status: String,
+    id: string,
+    title: string,
+    status: string,
     collection: Collection,
-    poster_path: String,
-    overview: String,
+    poster_path: string,
+    overview: string,
     genres: Genre[],
-    release_date: String,
-    synopsis: String,
+    release_date: string,
+    synopsis: string,
 }
 
 
@@ -27,4 +27,9 @@ export interface MovieInfoUser {
     review: String,
     status: String,
     favorite: Boolean,
+}
+
+export interface MovieGet {
+    movie_id: number,
+    note: number,
 }
