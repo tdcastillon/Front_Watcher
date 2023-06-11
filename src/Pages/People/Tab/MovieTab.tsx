@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MovieCard from '../../Home/Home_Components/MovieCard';
-import { createVoidZero } from 'typescript';
 import Movie_People_Card from '../Components/Movie_People_Card';
 
 const MovieTab = (props: {id: string}) => {

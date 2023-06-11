@@ -38,4 +38,19 @@ const add_principal = (principal_cast: CrewMember[], person: any) => {
     return principal_cast;
 }
 
-export { identify_principal }
+const FrJob = (job: String) => {
+    switch (job) {
+        case 'Director':
+            return 'Réalisateur';
+        case 'Screenplay':
+            return 'Scénariste';
+        case 'Writer':
+            return 'Scénariste';
+        case 'Original Music Composer':
+            return 'Compositeur';
+        default:
+            return job;
+    }
+}
+
+export { identify_principal, FrJob }

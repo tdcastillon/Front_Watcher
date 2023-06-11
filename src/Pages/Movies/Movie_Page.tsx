@@ -35,7 +35,7 @@ function Movie_Page() {
     const [rate, setRate] = useState(0.0);
     const [ movieInfoUser, setMovieInfoUser ] = useState<mi.MovieInfoUser>({
         id: '',
-        rating: 0,
+        rating: -1,
         review: '',
         status: '',
         favorite: false,
@@ -140,7 +140,7 @@ function Movie_Page() {
                                     backgroundColor: 'transparent',
                                     border: 'none',
                                     fontSize: '1.2em',
-                                    width: '15%',
+                                    width: '20%',
                                     alignSelf: 'center',
                                 }}>
                                     {(movieInfoUser.rating === -1) ? 'Ajouter une note' : 'Modifier la note'}
