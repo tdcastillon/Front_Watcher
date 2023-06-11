@@ -41,7 +41,7 @@ function ActorTab(props :{ movie_id: String, movieCast: Actor[], movieInfo: any 
                     width: '40%',
                     alignSelf: 'center',
                 }}>
-            See All Cast 
+            Voir tout le casting
             </Button>
         </div>
     )
