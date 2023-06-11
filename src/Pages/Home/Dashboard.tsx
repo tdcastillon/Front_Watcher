@@ -29,6 +29,9 @@ const Dashboard = (props: any) => {
                     response.json().then((json) => {
                         setMovies(json);
                     })
+                } else if (response.status === 403) {
+                    localStorage.removeItem('token');
+                    navigation('/');
                 }
             })
         }

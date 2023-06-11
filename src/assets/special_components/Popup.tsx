@@ -1,8 +1,10 @@
 import { TextField, Button } from '@mui/material';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Popup( props: { setOpenPopup: Function, setRate: React.Dispatch<React.SetStateAction<number>>, rate: number, movieId: string, validate: boolean } ) {
     
+    const navigation = useNavigate();
     const validateNote = () => {
         fetch('http://localhost:8080/marks/add', {
             method: 'POST',
@@ -39,6 +41,9 @@ function Popup( props: { setOpenPopup: Function, setRate: React.Dispatch<React.S
             if (res.status === 201) {
                 alert('Note modifiée !');
                 props.setOpenPopup(false);
+            } else if (res.status === 403) {
+                localStorage.removeItem('token');
+                navigation('/');
             }
         })
     }
@@ -55,6 +60,10 @@ function Popup( props: { setOpenPopup: Function, setRate: React.Dispatch<React.S
             if (res.status === 201) {
                 alert('Note supprimée !');
                 props.setOpenPopup(false);
+            }
+            if (res.status === 403) {
+                localStorage.removeItem('token');
+                navigation('/');
             }
         })
     }

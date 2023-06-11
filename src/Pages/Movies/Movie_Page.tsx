@@ -99,6 +99,9 @@ function Movie_Page() {
                         ...movieInfoUser,
                         rating: -1,
                     })
+                } else if (res.status === 403) {
+                    localStorage.removeItem('token');
+                    navigation('/');
                 }
             })
 

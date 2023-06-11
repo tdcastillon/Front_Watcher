@@ -34,6 +34,9 @@ const Movie_Crew_Card = (props: {id: string, poster_path: string, title: string,
                     })
                 else if (res.status === 404) {
                     setNote(-1);
+                } else if (res.status === 403) {
+                    localStorage.removeItem('token');
+                    navigation('/');
                 }
             })
         }
