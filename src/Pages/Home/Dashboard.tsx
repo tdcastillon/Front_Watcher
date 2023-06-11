@@ -31,7 +31,7 @@ const Dashboard = (props: any) => {
                     })
                 } else if (response.status === 403) {
                     localStorage.removeItem('token');
-                    navigation('/');
+                    window.location.reload();
                 }
             })
         }
