@@ -1,8 +1,10 @@
 import { Card, CardContent, CardMedia, CardActions, Typography, Button, Box } from "@mui/material";
 import logo from '../../../assets/logo/TheWatcher.png';
-
+import { useNavigate } from 'react-router-dom';
 
 function ActorCard (props: any) {
+
+    const navigation = useNavigate();
 
     const getImage = (path: string) => {
         if (path == null) {
@@ -27,11 +29,16 @@ function ActorCard (props: any) {
                         {props.name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        {props.character}
+                        {(props.character.length > 60) ? props.character.slice(0, 60) + '...' : props.character}
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small"> Afficher plus </Button>
+                    <Button 
+                        size="small"
+                        onClick={() => navigation('/people/' + props.id)}
+                    >
+                        Afficher plus 
+                    </Button>
                 </CardActions>
             </Card>
         </Box>
