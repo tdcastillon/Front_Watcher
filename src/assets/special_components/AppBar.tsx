@@ -27,7 +27,6 @@ const pages = [{
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
-  console.log(localStorage);
   return (
     <AppBar position="static">
       <Container maxWidth="xl">

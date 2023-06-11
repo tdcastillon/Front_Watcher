@@ -35,7 +35,6 @@ function Search_Movies() {
     const [ page, setPage ] = useState(1);
     const [total_pages, setTotalPages] = useState(1);
 
-    console.log(page)
 
     const searchMovie = (movie_title: string) => {
             fetch('https://api.themoviedb.org/3/search/movie?api_key=' + env.API_KEY + '&language=fr-FR&query=' + movie_title + '&page=' + page + '&include_adult=false&sort_by=popularity.desc')
@@ -49,9 +48,6 @@ function Search_Movies() {
                     return movie.overview !== '';
                 })
                 setMovies(movies);
-            })
-            .catch(error => {
-                console.log(error);
             })
     }
 
@@ -78,9 +74,6 @@ function Search_Movies() {
                     return movie.overview !== '';
                 })
                 setMovies(movies);
-            })
-            .catch(error => {
-                console.log(error);
             })
     }
 

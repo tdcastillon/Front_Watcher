@@ -13,7 +13,7 @@ import { getRating, getStatus } from '../../assets/functions/movie_functions';
 import ActorTab from './Tabs/ActorTab';
 import CrewTab from './Tabs/CrewTab';
 
-function Movie_Page(props: any) {
+function Movie_Page() {
 
     const navigation = useNavigate();
 

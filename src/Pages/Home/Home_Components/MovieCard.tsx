@@ -7,7 +7,6 @@ import { MovieInfoI } from '../../../assets/interfaces/movie_interfaces';
 const MovieCard = (props: any) => {
     const {id, note} = props;
 
-    console.log(props);
     const navigation = useNavigate();
 
     const [movieInfo, setMovieInfo] = useState<MovieInfoI>({} as MovieInfoI);

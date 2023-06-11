@@ -27,7 +27,6 @@ const Dashboard = (props: any) => {
             .then((response) => {
                 if (response.status === 200) {
                     response.json().then((json) => {
-                        console.log(json);
                         setMovies(json);
                     })
                 }

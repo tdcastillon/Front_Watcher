@@ -12,7 +12,7 @@ function CrewTab(props :{ movie_id: String, movieCrew: CrewMember[], movieInfo: 
         <div className='File_Content tab'>
             <div className='Content_Slide'>
                 {
-                    movieCrew.length === 0 ? <p> No director found </p> :
+                    movieCrew.length === 0 ? <p> Aucun membre d'équipe trouvé </p> :
                     <div className='Content_Slider_People'>
                         {
                             identify_principal(movieCrew).map((person: CrewMember) => {

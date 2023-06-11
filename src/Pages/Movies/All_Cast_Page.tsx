@@ -34,7 +34,6 @@ const AllCastPage = () => {
             <div className='cast' style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', width: '95%'}}>
                 {
                     movieCast.map((actor: Actor) => {
-                        console.log(actor);
                         return (
                             <ActorCard key={actor.id} id={actor.id} name={actor.name} character={actor.character} profile_path={actor.profile_path} />
                         )
