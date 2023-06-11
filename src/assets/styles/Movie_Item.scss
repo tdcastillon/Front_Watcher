@@ -19,6 +19,12 @@
     height: 230px;
 }
 
+.Serie_Poster {
+    object-fit: contain;
+    margin: 10px;
+    height: 300px;
+}
+
 .Header_Right {
     display: flex;
     flex-direction: column;
