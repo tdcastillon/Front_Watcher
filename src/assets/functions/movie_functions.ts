@@ -18,6 +18,10 @@ const getStatus = (status: String, release_date: String) : String => {
             return 'Sorti le ' + customDate(release_date);
         case 'Canceled':
             return 'Annulé';
+        case 'Ended':
+            return 'Terminé';
+        case 'Returning Series':
+            return 'Série en cours';
         default:
             return 'Inconnu';
     }
