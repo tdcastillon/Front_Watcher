@@ -4,7 +4,7 @@ import { Card, CardContent, CardMedia, CardActions, Typography, Button, Box } fr
 import { customDate } from '../../../assets/functions/movie_functions';
 import logo from '../../../assets/logo/TheWatcher.png';
 
-const Movie_People_Card = (props: {id: string, poster_path: string, title: string, release_date: string, character: string }) => {
+const Movie_Crew_Card = (props: {id: string, poster_path: string, title: string, release_date: string, job: string }) => {
     const navigation = useNavigate();
 
     const [ note, setNote ] = useState(-1);
@@ -54,9 +54,6 @@ const Movie_People_Card = (props: {id: string, poster_path: string, title: strin
                     <Typography gutterBottom variant="body1" component="div">
                         {props.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" style={{ fontWeight: 'bolder' }}>
-                        {(props.character.length > 60) ? props.character.slice(0, 60) + '...' : props.character}
-                    </Typography>
                     <div style={{height: '20px'}} />
                     {
                         (note !== -1) ? (
@@ -87,4 +84,4 @@ const Movie_People_Card = (props: {id: string, poster_path: string, title: strin
     )
 }
 
-export default Movie_People_Card;
+export default Movie_Crew_Card;

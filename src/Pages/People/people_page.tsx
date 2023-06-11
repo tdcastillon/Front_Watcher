@@ -6,6 +6,7 @@ import { customDate } from '../../assets/functions/movie_functions';
 import { Tabs, Tab } from '@mui/material';
 import TabPanel from '../../assets/special_components/TabPanel';
 import MovieTab from './Tab/MovieTab';
+import MovieCrewTab from './Tab/MovieCrewTab';
 
 function People_Page() {
     const actor_id = window.location.pathname.split('/')[2];
@@ -103,10 +104,10 @@ function People_Page() {
                     <MovieTab id={actor_id}/>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <h1>Acteur de séries</h1>
+                    <h1>Série</h1> 
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-                    <h1>Equipe Film</h1>
+                    <MovieCrewTab id={actor_id}/>
                 </TabPanel>
                 <TabPanel value={value} index={3}>
                     <h1>Equipe Série</h1>
