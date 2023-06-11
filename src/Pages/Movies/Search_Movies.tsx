@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import '../../assets/styles/Search.scss'
 
-import { TextField, IconButton, Card, CardActionArea, CardContent } from '@mui/material';
+import { TextField, IconButton, Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -10,6 +10,8 @@ import logo from '../../assets/logo/TheWatcher.png';
 import { MdList, MdSearch } from 'react-icons/md';
 
 import env from "ts-react-dotenv"
+import { MovieInfoI } from '../../assets/interfaces/movie_interfaces';
+import { get } from 'http';
 
 function Search_Movies() {
 
@@ -20,16 +22,15 @@ function Search_Movies() {
 
 
     interface Movie {
-        id: String,
-        title: String,
-        poster_path: String,
-        overview: String,
-        release_date: String,
+        id: string,
+        title: string,
+        poster_path: string,
+        overview: string,
+        release_date: string,
         genre_ids: Number[],
     }
 
-    let searched_movie : Movie[] = [];
-
+    let searched_movie : Movie[] = []
     const [ movies, setMovies ] = useState(searched_movie);
 
     const [ page, setPage ] = useState(1);
@@ -37,7 +38,7 @@ function Search_Movies() {
 
 
     const searchMovie = (movie_title: string) => {
-            fetch('https://api.themoviedb.org/3/search/movie?api_key=' + env.API_KEY + '&language=fr-FR&query=' + movie_title + '&page=' + page + '&include_adult=false&sort_by=popularity.desc')
+            fetch('https://api.themoviedb.org/3/search/movie?api_key=' + env.API_KEY + '&language=fr-FR&query=' + movie_title + '&page=' + page + '&include_adult=false&sort_by=popularity.desc&vote_count.gte=100&vote_average.gte=3')
             .then(response => response.json())
             .then(data => {
                 setTotalPages(data.total_pages);
@@ -64,7 +65,7 @@ function Search_Movies() {
 
     const changePage = (new_page: number) => {
         setPage(new_page)
-        fetch('https://api.themoviedb.org/3/search/movie?api_key=' + env.API_KEY + '&language=fr-FR&query=' + search + '&page=' + new_page + '&include_adult=false&sort_by=popularity.desc')
+        fetch('https://api.themoviedb.org/3/search/movie?api_key=' + env.API_KEY + '&language=fr-FR&query=' + search + '&page=' + new_page + '&include_adult=false&sort_by=popularity.desc&vote_count.gte=100&vote_average.gte=3')
             .then(response => response.json())
             .then(data => {
                 let movies = data.results.filter((movie: Movie) => {
@@ -78,7 +79,17 @@ function Search_Movies() {
     }
 
     const customOverview = (overview: String) => {
-        return overview
+        // get only setences with less than 100 characters
+        let n_overview = overview.split('.');
+        let new_overview = '';
+        for (let i = 0; i < n_overview.length; i++) {
+            if (n_overview[i].length < 100) {
+                new_overview += n_overview[i] + '. ';
+            }
+        }
+        new_overview = new_overview.slice(0, -4);
+        new_overview += '...';
+        return new_overview;
     }
 
     const customDate = (date: String) => {
@@ -115,43 +126,37 @@ function Search_Movies() {
                 </div>
             </div>
             <div className='Movies'>
-                {
-                    movies.map((movie: Movie, index) => {
-                        return (
-                            <div className='Movie' key={index}>
-                                <Card className='Movie_Card'>
-                                    <CardActionArea onClick={() => {
-                                        localStorage.search = search;
-                                        navigation('/movie/' + movie.id)}
-                                    }>
-                                        <CardContent>
-                                            <div className='Movie_Header'>
-                                                <div className='Movie_Poster'>
-                                                    {
-                                                        movie.poster_path === null ?
-                                                            <img src={logo} className='logo' alt="The Watcher" />
-                                                        :
-                                                            <img src={'https://image.tmdb.org/t/p/w154' + movie.poster_path} alt='Poster' />
-                                                    }
-                                                </div>
-                                                <div className='Movie_Info'>
-                                                    <p className='Movie_Title'> {movie.title} </p>
-                                                    <p className='Movie_Release_Date'> {customDate(movie.release_date)} </p>
-                                                </div>
-                                            </div>
-                                        </CardContent>
-                                        {
-                                            movie.overview != '' ?
-                                            <CardContent className='Movie_Content'>
-                                                <p className='Movie_Overview'>{customOverview(movie.overview)}</p>
+            {
+                    movies.map((movie: Movie) => {
+                            return (
+                                <div className='Movie' key={movie.id}>
+                                    <Card className='Movie_Card'>
+                                        <CardActionArea onClick={() => navigation('/movie/' + movie.id)} style={{ height: '100%' }}>
+                                            <CardMedia
+                                                component="img"
+                                                image={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
+                                                alt={movie.title}
+                                                height="300"
+                                                style={{ objectFit: 'contain', margin: '5px' }}
+                                            />
+                                            <div style={{ height: '20px' }}></div>
+                                            <CardContent>
+                                                <Typography gutterBottom variant="body1" component="div" style={{ fontWeight: 'bolder' }} >
+                                                    {movie.title}
+                                                </Typography>
+                                                <div style={{ height: '20px' }}></div>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    {customOverview(movie.overview)}
+                                                </Typography>
+                                                <div style={{ height: '20px' }}></div>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    Date : {customDate(movie.release_date)}
+                                                </Typography>
                                             </CardContent>
-                                            :
-                                            <div></div>
-                                        }
-                                    </CardActionArea>
-                                </Card>
-                            </div>
-                        )
+                                        </CardActionArea>
+                                    </Card>
+                                </div>
+                            )
                     })
                 }
             </div>
