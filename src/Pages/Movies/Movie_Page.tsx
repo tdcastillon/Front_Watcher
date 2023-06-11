@@ -111,7 +111,7 @@ function Movie_Page() {
         findMovieInfoPeople();
         getNote();
 
-    }, [movie_id, navigation, movieInfoUser]);
+    }, [movie_id, navigation, movieInfoUser.rating, movieCrew, movieCast]);
 
     const closePopup = () => {
         setOpenPopup(false);
