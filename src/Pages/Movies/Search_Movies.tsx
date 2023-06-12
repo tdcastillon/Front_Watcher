@@ -38,7 +38,7 @@ function Search_Movies() {
 
 
     const searchMovie = (movie_title: string) => {
-            fetch('https://api.themoviedb.org/3/search/movie?api_key=' + env.API_KEY + '&language=fr-FR&query=' + movie_title + '&page=' + page + '&include_adult=false&sort_by=popularity.desc&vote_count.gte=100&vote_average.gte=3')
+            fetch('https://api.themoviedb.org/3/search/movie?api_key=' + env.API_KEY + '&language=fr-FR&query=' + movie_title + '&page=' + page + '&include_adult=false&sort_by=release_date.desc&vote_count.gte=100&vote_average.gte=3')
             .then(response => response.json())
             .then(data => {
                 setTotalPages(data.total_pages);
@@ -65,7 +65,7 @@ function Search_Movies() {
 
     const changePage = (new_page: number) => {
         setPage(new_page)
-        fetch('https://api.themoviedb.org/3/search/movie?api_key=' + env.API_KEY + '&language=fr-FR&query=' + search + '&page=' + new_page + '&include_adult=false&sort_by=popularity.desc&vote_count.gte=100&vote_average.gte=3')
+        fetch('https://api.themoviedb.org/3/search/movie?api_key=' + env.API_KEY + '&language=fr-FR&query=' + search + '&page=' + new_page + '&include_adult=false&sort_by=release_date.desc&vote_count.gte=100&vote_average.gte=3')
             .then(response => response.json())
             .then(data => {
                 let movies = data.results.filter((movie: Movie) => {
