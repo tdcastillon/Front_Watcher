@@ -1,55 +1,47 @@
 import { useEffect, useState } from 'react';
 import '../../assets/styles/Search.scss'
 
-import { TextField, IconButton, Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
+import { TextField, IconButton, Card, CardActionArea, CardContent, CardMedia, Typography} from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
 
 import logo from '../../assets/logo/TheWatcher.png';
 
-import { MdList, MdSearch } from 'react-icons/md';
+import { MdSearch } from 'react-icons/md';
+import { customDate } from '../../assets/functions/movie_functions';
 
-import env from "ts-react-dotenv"
-import { MovieInfoI } from '../../assets/interfaces/movie_interfaces';
-import { get } from 'http';
-
-function Search_Movies() {
+function Search_Series() {
 
     const navigation = useNavigate();
 
-
-    const [ search, setSearch ] = useState('');
-
-
-    interface Movie {
-        id: string,
-        title: string,
+    interface Serie {
+        id: number,
         poster_path: string,
         overview: string,
-        release_date: string,
-        genre_ids: Number[],
+        name: string,
+        first_air_date: string
     }
 
-    let searched_movie : Movie[] = []
-    const [ movies, setMovies ] = useState(searched_movie);
+    let searched_serie : Serie[] = [];
+    const [ series, setSeries ] = useState(searched_serie);
 
+    const [ search, setSearch ] = useState('');
     const [ page, setPage ] = useState(1);
     const [total_pages, setTotalPages] = useState(1);
 
-
-    const searchMovie = (movie_title: string) => {
-            fetch('https://api.themoviedb.org/3/search/movie?api_key=' + env.API_KEY + '&language=fr-FR&query=' + movie_title + '&page=' + page + '&include_adult=false&sort_by=release_date.desc&vote_count.gte=100&vote_average.gte=3')
-            .then(response => response.json())
-            .then(data => {
-                setTotalPages(data.total_pages);
-                let movies = data.results.filter((movie: Movie) => {
-                    return movie.poster_path !== null;
-                })
-                movies = movies.filter((movie: Movie) => {
-                    return movie.overview !== '';
-                })
-                setMovies(movies);
+    const searchSerie = (serie_title: string) => {
+        fetch('https://api.themoviedb.org/3/search/tv?api_key=76ba0158d0afb618e5ca3a13dd00f4db&language=fr-FR&query=' + serie_title + '&page=' + page + '&include_adult=false&sort_by=popularity.asc')
+        .then(response => response.json())
+        .then(data => {
+            setTotalPages(data.total_pages);
+            let series = data.results.filter((serie: Serie) => {
+                return serie.poster_path !== null;
             })
+            series = series.filter((serie: Serie) => {
+                return serie.overview !== '';
+            })
+            setSeries(series);
+        })
     }
 
     useEffect(() => {
@@ -58,99 +50,84 @@ function Search_Movies() {
         }
         if (localStorage.search !== undefined) {
             setSearch(localStorage.search);
-            searchMovie(localStorage.search);
             localStorage.removeItem('search');
         }
-    }, [movies, navigation])
+    }, [navigation])
 
     const changePage = (new_page: number) => {
-        setPage(new_page)
-        fetch('https://api.themoviedb.org/3/search/movie?api_key=' + env.API_KEY + '&language=fr-FR&query=' + search + '&page=' + new_page + '&include_adult=false&sort_by=release_date.desc&vote_count.gte=100&vote_average.gte=3')
-            .then(response => response.json())
-            .then(data => {
-                let movies = data.results.filter((movie: Movie) => {
-                    return movie.poster_path !== null;
-                })
-                movies = movies.filter((movie: Movie) => {
-                    return movie.overview !== '';
-                })
-                setMovies(movies);
+        setPage(new_page);
+        fetch('https://api.themoviedb.org/3/search/tv?api_key=76ba0158d0afb618e5ca3a13dd00f4db&language=fr-FR&query=' + search + '&page=' + new_page + '&include_adult=false&sort_by=popularity')
+        .then(response => response.json())
+        .then(data => {
+            setTotalPages(data.total_pages);
+            let series = data.results.filter((serie: Serie) => {
+                return serie.poster_path !== null;
             })
+            series = series.filter((serie: Serie) => {
+                return serie.overview !== '';
+            })
+            setSeries(series);
+        })
     }
 
     const customOverview = (overview: String) => {
-        // get only setences with less than 100 characters
-        let n_overview = overview.split('.');
-        let new_overview = '';
-        for (let i = 0; i < n_overview.length; i++) {
-            if (n_overview[i].length < 100) {
-                new_overview += n_overview[i] + '. ';
-            }
-        }
-        new_overview = new_overview.slice(0, -4);
-        new_overview += '...';
+        let new_overview = overview.substring(0, 200);
+        new_overview = new_overview + '...';
         return new_overview;
-    }
-
-    const customDate = (date: String) => {
-        let n_date = date.split('-');
-        const months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-        return n_date[2] + ' ' + months[parseInt(n_date[1]) - 1] + ' ' + n_date[0];
     }
 
     return (
         <div className='Home'>
             <div className='Header'>
-                <p className='title'> Rechercher un film </p>
+                <p className='title'> Rechercher une Série </p>
                 <div className='search'>
                     <TextField
                         id="outlined-search"
-                        label="Rechercher un film"
+                        label="Rechercher une série"
                         type="search"
                         variant="outlined"
                         value={search}
                         onChange={(e) => {setSearch(e.target.value); localStorage.search = e.target.value}}
                         onKeyPress={(e) => {
                             if (e.key === 'Enter') {
-                                searchMovie(search);
                                 localStorage.search = search;
+                                searchSerie(search);
                             }
                         }}
                         style={{ width: '80%', marginRight: '20px'}}
                     />
                     <div className='search_button'>
-                        <IconButton onClick={() => searchMovie(search)} color="primary" className="Home_Menu_Button Search">
+                        <IconButton onClick={() => (searchSerie(search))} color="primary" className="Home_Menu_Button Search">
                             <MdSearch />
                         </IconButton>
                     </div>      
                 </div>
             </div>
             <div className='Movies'>
-            {
-                    movies.map((movie: Movie) => {
+                {
+                    series.map((serie: Serie) => {
                             return (
-                                <div className='Movie' key={movie.id}>
+                                <div className='Movie' key={serie.id}>
                                     <Card className='Movie_Card'>
-                                        <CardActionArea onClick={() => navigation('/movie/' + movie.id)} style={{ height: '100%' }}>
+                                        <CardActionArea onClick={() => navigation('/serie/' + serie.id)} style={{ height: '100%' }}>
                                             <CardMedia
                                                 component="img"
-                                                image={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
-                                                alt={movie.title}
+                                                image={(serie.poster_path !== null) ? "https://image.tmdb.org/t/p/w500" + serie.poster_path : logo}
+                                                alt={serie.name}
                                                 height="300"
                                                 style={{ objectFit: 'contain', margin: '5px' }}
                                             />
-                                            <div style={{ height: '20px' }}></div>
                                             <CardContent>
                                                 <Typography gutterBottom variant="body1" component="div" style={{ fontWeight: 'bolder' }} >
-                                                    {movie.title}
+                                                    {serie.name}
                                                 </Typography>
                                                 <div style={{ height: '20px' }}></div>
                                                 <Typography variant="body2" color="text.secondary">
-                                                    {customOverview(movie.overview)}
+                                                    {(serie.overview.length > 100) ? customOverview(serie.overview) : serie.overview}
                                                 </Typography>
                                                 <div style={{ height: '20px' }}></div>
                                                 <Typography variant="body2" color="text.secondary">
-                                                    Date : {customDate(movie.release_date)}
+                                                    Date : {customDate(serie.first_air_date)}
                                                 </Typography>
                                             </CardContent>
                                         </CardActionArea>
@@ -208,4 +185,4 @@ function Search_Movies() {
     )
 }
 
-export default Search_Movies;
+export default Search_Series;

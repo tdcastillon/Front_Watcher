@@ -1,8 +1,15 @@
-import { Card, CardContent, CardMedia, CardActions, Typography, Button, Box } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography, CardActions, Button, Box } from "@mui/material";
 import logo from '../../../assets/logo/TheWatcher.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { FrJob } from "../../../assets/functions/crew_functions";
+import { Job } from "../../../assets/interfaces/serie_interfaces";
 
-function ActorCard (props: any) {
+function CrewCard (props: {
+    id: number,
+    name: string,
+    jobs: Job[],
+    profile_path: string
+}) {
 
     const navigation = useNavigate();
 
@@ -14,9 +21,18 @@ function ActorCard (props: any) {
         }
     }
 
+    const displayJob = (job: Job[]) => {
+        let jobString = "";
+        job.forEach((job: Job) => {
+            jobString += FrJob(job.job) + ", ";
+        });
+        jobString = jobString.slice(0, -2);
+        return jobString;
+    }
+
     return (
-        <Box display="inline-block" style={{ margin: '10px 5px' }}>
-            <Card sx={{ width: '125px !important', height: '350px !important', flex: 1, backgroundColor: '#F0F0F0', boxShadow: '5px 5px 5px -5px #2d2a32' }}>
+        <Box display="inline-block" style={{ margin: '10px 0' }}>
+            <Card sx={{ width: '175px !important', height: '350px !important', flex: 1, backgroundColor: '#F0F0F0', boxShadow: '5px 5px 5px -5px #2d2a32' }}>
                 <CardMedia
                     component="img"
                     height="140"
@@ -25,11 +41,11 @@ function ActorCard (props: any) {
                     style={{ objectFit: 'contain', margin: '5px' }}
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="body1" component="div" style={{ fontSize: '1.2em' }}>
+                    <Typography gutterBottom variant="h5" component="div">
                         {props.name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        {(props.character.length > 60) ? props.character.slice(0, 60) + '...' : props.character}
+                        {displayJob(props.jobs)}
                     </Typography>
                 </CardContent>
                 <CardActions>
@@ -37,7 +53,7 @@ function ActorCard (props: any) {
                         size="small"
                         onClick={() => navigation('/people/' + props.id)}
                     >
-                        Afficher plus 
+                        Afficher plus
                     </Button>
                 </CardActions>
             </Card>
@@ -45,4 +61,4 @@ function ActorCard (props: any) {
     )
 }
 
-export default ActorCard;
+export default CrewCard;

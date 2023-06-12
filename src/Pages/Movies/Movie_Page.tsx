@@ -13,7 +13,7 @@ import { getRating, getStatus } from '../../assets/functions/movie_functions';
 import ActorTab from './Tabs/ActorTab';
 import CrewTab from './Tabs/CrewTab';
 
-function Movie_Page(props: any) {
+function Movie_Page() {
 
     const navigation = useNavigate();
 
@@ -35,7 +35,7 @@ function Movie_Page(props: any) {
     const [rate, setRate] = useState(0.0);
     const [ movieInfoUser, setMovieInfoUser ] = useState<mi.MovieInfoUser>({
         id: '',
-        rating: 0,
+        rating: -1,
         review: '',
         status: '',
         favorite: false,
@@ -99,6 +99,9 @@ function Movie_Page(props: any) {
                         ...movieInfoUser,
                         rating: -1,
                     })
+                } else if (res.status === 403) {
+                    localStorage.removeItem('token');
+                    navigation('/');
                 }
             })
 
@@ -108,7 +111,7 @@ function Movie_Page(props: any) {
         findMovieInfoPeople();
         getNote();
 
-    }, [movie_id, navigation, movieInfoUser]);
+    }, [movie_id, navigation, movieInfoUser.rating, movieCrew, movieCast]);
 
     const closePopup = () => {
         setOpenPopup(false);
@@ -140,7 +143,7 @@ function Movie_Page(props: any) {
                                     backgroundColor: 'transparent',
                                     border: 'none',
                                     fontSize: '1.2em',
-                                    width: '15%',
+                                    width: '20%',
                                     alignSelf: 'center',
                                 }}>
                                     {(movieInfoUser.rating === -1) ? 'Ajouter une note' : 'Modifier la note'}
@@ -225,7 +228,7 @@ function Movie_Page(props: any) {
                     <ActorTab movie_id={movie_id} movieCast={movieCast} movieInfo={movieInfo}/>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <CrewTab movie_id={movie_id} movieCrew={movieCrew} movieInfo={movieInfo}/>
+                    <CrewTab movieCrew={movieCrew}/>
                 </TabPanel>
             </div>
         </div>

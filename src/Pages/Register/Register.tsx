@@ -37,7 +37,7 @@ function Register() {
                 password: password
             })
         });
-        if (response.status === 200) {
+        if (response.status === 201) {
             alert('Utilisateur créé');
             navigate('/login');
         } else {

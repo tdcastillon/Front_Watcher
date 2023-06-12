@@ -17,17 +17,16 @@ const pages = [{
     path: '/search_movies'
   }, {
     name: 'Recherche des séries',
-    path: '/search_tv_shows'
+    path: '/search_series'
   }, {
-    name: 'Recherche Personnes',
-    path: '/search_people'
+    name: 'Recherche utilisateur',
+    path: '/search_user'
   }
 ];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
-  console.log(localStorage);
   return (
     <AppBar position="static">
       <Container maxWidth="xl">

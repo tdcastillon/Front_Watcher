@@ -7,7 +7,6 @@ import { MovieInfoI } from '../../../assets/interfaces/movie_interfaces';
 const MovieCard = (props: any) => {
     const {id, note} = props;
 
-    console.log(props);
     const navigation = useNavigate();
 
     const [movieInfo, setMovieInfo] = useState<MovieInfoI>({} as MovieInfoI);
@@ -51,7 +50,7 @@ const MovieCard = (props: any) => {
                     style={{ objectFit: 'contain', margin: '5px' }}
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div" style={{ fontWeight: '500' }} >
+                    <Typography gutterBottom variant="body1" component="div" style={{ fontWeight: 'bolder' }} >
                         {movieInfo.title}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">

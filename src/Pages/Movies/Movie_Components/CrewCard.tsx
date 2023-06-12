@@ -1,7 +1,11 @@
 import { Card, CardContent, CardMedia, Typography, CardActions, Button, Box } from "@mui/material";
 import logo from '../../../assets/logo/TheWatcher.png';
+import { useNavigate } from "react-router-dom";
+import { FrJob } from "../../../assets/functions/crew_functions";
 
 function CrewCard (props: any) {
+
+    const navigation = useNavigate();
 
     const getImage = (path: string) => {
         if (path == null) {
@@ -18,21 +22,6 @@ function CrewCard (props: any) {
             display += fr_job[i] + ', ';
         }
         return display.slice(0, -2);
-    }
-
-    const FrJob = (job: String) => {
-        switch (job) {
-            case 'Director':
-                return 'Réalisateur';
-            case 'Screenplay':
-                return 'Scénariste';
-            case 'Writer':
-                return 'Scénariste';
-            case 'Original Music Composer':
-                return 'Compositeur';
-            default:
-                return job;
-        }
     }
 
     return (
@@ -54,7 +43,12 @@ function CrewCard (props: any) {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small"> Afficher plus </Button>
+                    <Button 
+                        size="small"
+                        onClick={() => navigation('/people/' + props.id)}
+                    >
+                        Afficher plus
+                    </Button>
                 </CardActions>
             </Card>
         </Box>

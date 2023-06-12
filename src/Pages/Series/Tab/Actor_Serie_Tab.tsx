@@ -1,25 +1,30 @@
 import { Button } from '@mui/material'
-import React from 'react'
-import { identify_actor } from '../../../assets/functions/actor_functions'
-import { Actor } from '../../../assets/interfaces/actor_interfaces'
-import ActorCard from '../Movie_Components/ActorCard'
+import { useEffect } from 'react'
 
 import { useNavigate } from 'react-router-dom';
+import { ActorSeries } from '../../../assets/interfaces/serie_interfaces'
+import ActorCard from '../Components/ActorSerieCard';
 
-function ActorTab(props :{ movie_id: String, movieCast: Actor[], movieInfo: any }) {
+function ActorTab(props :{ serie_id: String, serieCast: ActorSeries[], movieInfo: any }) {
 
-    const { movie_id, movieCast, movieInfo } = props;
+    const { serie_id, serieCast, movieInfo } = props;
 
     const navigation = useNavigate();
+
+    useEffect(() => {
+        if ((localStorage.getItem('token') === null) || (localStorage.getItem('token') === '')) {
+            navigation('/');
+        }
+    }, []);
 
     return (
         <div className='File_Content tab'>
             <div className='Content_Slide'>
                     <div className='Content_Slider_People'>
                         {
-                            identify_actor(movieCast).slice(0, 5).map((person: Actor) => {
+                            serieCast.slice(0, 5).map((person: ActorSeries) => {
                                 return (
-                                    <ActorCard key={person.id} id={person.id} name={person.name} character={person.character} profile_path={person.profile_path}/>
+                                    <ActorCard profile_path={person.profile_path} name={person.name} roles={person.roles} id={person.id} />
                                 )
                             })
                         }
@@ -27,11 +32,11 @@ function ActorTab(props :{ movie_id: String, movieCast: Actor[], movieInfo: any 
             </div>
             <div style={{ height: '25px' }}></div>
             <Button 
-                onClick={() => navigation('/movie/' + movie_id + '/cast', {
+                onClick={() => navigation('/serie/' + serie_id + '/cast', {
                     state: {
-                        movie_id: movie_id,
-                        cast: movieCast,
-                        title: movieInfo.title,
+                        serie_id: serie_id,
+                        cast: serieCast,
+                        name: movieInfo.name,
                     }
                 })}
                 style={{

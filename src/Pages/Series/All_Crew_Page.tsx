@@ -3,39 +3,29 @@ import React, {useEffect, useState} from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import '../../assets/styles/Movie_Item.scss';
-import ActorCard from './Movie_Components/ActorCard';
+import { ActorSeries, CrewSerieMember, Role } from '../../assets/interfaces/serie_interfaces';
+import CrewCard from './Components/CrewCard';
 
-const AllCastPage = () => {
+const All_CrewS_Page = () => {
     const navigation = useNavigate();
     const location = useLocation();
-
-    const [ movieCast, setMovieCast ] = useState<any[]>([]);
     
     useEffect(() => {
         if ((localStorage.getItem('token') === null) || (localStorage.getItem('token') === '')) {
             navigation('/');
         }
-        // erase all uncredited actors
-        setMovieCast(location.state.cast.filter((actor: any) => !actor.character.includes('(uncredited)')));
-    }, [movieCast, location.state.cast, navigation]);
-
-    interface Actor {
-        id: String,
-        name: String,
-        character: String,
-        profile_path: String,
-    }
+    }, [navigation]);
 
     return (
         <div className='Home'>
             <div className='Dashboard_Header'>
-                <h1> Cast complet de {location.state.title} </h1>
+                <h1> Equipe compléte de {location.state.name} </h1>
             </div>
             <div className='cast' style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', width: '95%'}}>
                 {
-                    movieCast.map((actor: Actor) => {
+                    location.state.crew.map((crewM: CrewSerieMember) => {
                         return (
-                            <ActorCard key={actor.id} id={actor.id} name={actor.name} character={actor.character} profile_path={actor.profile_path} />
+                            <CrewCard key={crewM.id} id={crewM.id} name={crewM.name} jobs={crewM.jobs} profile_path={crewM.profile_path} />
                         )
                     })
                 }
@@ -44,4 +34,4 @@ const AllCastPage = () => {
     )
 }
 
-export default AllCastPage
+export default All_CrewS_Page

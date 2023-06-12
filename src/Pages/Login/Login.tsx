@@ -56,7 +56,6 @@ function Login() {
                 })
             });
         }
-        console.log(response);
         if (response.status == 200) {
             let json = await response.json();
             alert ('Vous êtes connecté');

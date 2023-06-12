@@ -45,6 +45,15 @@
 .Dashboard_Content_Last_Movies_List_Empty {
     font-size: 1.5em;
     font-weight: 500;
+    height: 200px !important;
+    font-style: italic;
+    align-self: center;
+}
+
+.People_Content_Empty {
+    font-size: 1.5em;
+    font-weight: 500;
+    height: 500px !important;
     font-style: italic;
     align-self: center;
 }

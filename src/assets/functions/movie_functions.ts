@@ -9,7 +9,22 @@ const customDate = (date: String) => {
 }
 
 const getStatus = (status: String, release_date: String) : String => {
-    return (status === 'Released') ? 'Sorti le ' + customDate(release_date) : 'A Sortir le ' + release_date;
+    switch (status) {
+        case 'Rumored':
+            return 'Rumeur';
+        case 'Post Production':
+            return 'Post production';
+        case 'Released':
+            return 'Sorti le ' + customDate(release_date);
+        case 'Canceled':
+            return 'Annulé';
+        case 'Ended':
+            return 'Terminé';
+        case 'Returning Series':
+            return 'Série en cours';
+        default:
+            return 'Inconnu';
+    }
 }
 
 export { getRating, customDate, getStatus}
