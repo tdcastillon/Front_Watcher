@@ -15,14 +15,9 @@ const MovieTab = (props: {id: string}) => {
         note: number,
     }
 
-    const [ movieList, setMovieList ] = useState<Array<MovieInfoActor>>([{
-        id: '',
-        poster_path: '',
-        release_date: '',
-        title: '',
-        character: '',
-        note: 0,
-    }]);
+    const [ movieList, setMovieList ] = useState<Array<MovieInfoActor>>([]);
+
+    const [empty, setEmpty] = useState<boolean>(true);
 
     useEffect(() => {
         if ((localStorage.getItem('token') === null) || (localStorage.getItem('token') === '')) {
@@ -42,6 +37,9 @@ const MovieTab = (props: {id: string}) => {
                     return new Date(b.release_date).getTime() - new Date(a.release_date).getTime();
                 })
                 setMovieList(cast);
+                if (cast.length > 0) {
+                    setEmpty(false);
+                }
             })
         }
     
@@ -51,7 +49,7 @@ const MovieTab = (props: {id: string}) => {
     return (
         <div className="Movie_Tab">
             {
-                (movieList === undefined || movieList.length === 0) ? <p className="Dashboard_Content_Last_Movies_List_Empty">Aucun film ajouté</p> :
+                (empty === true) ? <p className="People_Content_Empty" style={{height: '500px !important'}}>Aucun film ajouté</p> :
                 movieList.map((movie: MovieInfoActor) => {
                     return (
                         <Movie_People_Card id={movie.id} poster_path={movie.poster_path} title={movie.title} release_date={movie.release_date} character={movie.character} />

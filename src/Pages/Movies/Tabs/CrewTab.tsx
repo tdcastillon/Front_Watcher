@@ -4,7 +4,7 @@ import CrewCard from '../Movie_Components/CrewCard'
 
 import { identify_principal } from '../../../assets/functions/crew_functions';
 
-function CrewTab(props :{ movie_id: String, movieCrew: CrewMember[], movieInfo: any }) {
+function CrewTab(props :{ movieCrew: CrewMember[] }) {
 
    const { movieCrew } = props;
 

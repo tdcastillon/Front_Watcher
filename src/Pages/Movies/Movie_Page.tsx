@@ -228,7 +228,7 @@ function Movie_Page() {
                     <ActorTab movie_id={movie_id} movieCast={movieCast} movieInfo={movieInfo}/>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <CrewTab movie_id={movie_id} movieCrew={movieCrew} movieInfo={movieInfo}/>
+                    <CrewTab movieCrew={movieCrew}/>
                 </TabPanel>
             </div>
         </div>

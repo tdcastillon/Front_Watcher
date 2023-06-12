@@ -65,7 +65,7 @@ const MovieCrewTab = (props: {id: string}) => {
     return (
         <div className="Movie_Tab">
             {
-                (numberMovie === 0) ? <p className="Dashboard_Content_Last_Movies_List_Empty">Aucun film ajouté</p> :
+                (numberMovie === 0) ? <p className="People_Content_Empty" style={{height: '500px !important'}}>Aucun film ajouté</p> :
                 <div>
                     <Tabs
                         value={value}
@@ -94,7 +94,7 @@ const MovieCrewTab = (props: {id: string}) => {
                     </Tabs>
                     <TabPanel value={value} index={whereCrew.indexOf('Réalisateur')}>
                         {
-                            (movieListRealisateur === undefined || movieListRealisateur.length === 0) ? <p className="Dashboard_Content_Last_Movies_List_Empty">Aucun film trouvé en tant que réalisateur</p> :
+                            (movieListRealisateur === undefined || movieListRealisateur.length === 0) ? <p className="People_Content_Empty">Aucun film trouvé en tant que réalisateur</p> :
                             movieListRealisateur.map((movie: MovieInfoCrew) => {
                                 return (
                                     <Movie_Crew_Card id={movie.id} poster_path={movie.poster_path} title={movie.title} release_date={movie.release_date} job={movie.job} />
@@ -104,7 +104,7 @@ const MovieCrewTab = (props: {id: string}) => {
                     </TabPanel>
                     <TabPanel value={value} index={whereCrew.indexOf('Scénariste')}>
                         {
-                            (movieListScenariste === undefined || movieListScenariste.length === 0) ? <p className="Dashboard_Content_Last_Movies_List_Empty">Aucun film trouvé en tant que scénariste</p> :
+                            (movieListScenariste === undefined || movieListScenariste.length === 0) ? <p className="People_Content_Empty">Aucun film trouvé en tant que scénariste</p> :
                             movieListScenariste.map((movie: MovieInfoCrew) => {
                                 return (
                                     <Movie_Crew_Card id={movie.id} poster_path={movie.poster_path} title={movie.title} release_date={movie.release_date} job={movie.job} />
@@ -114,7 +114,7 @@ const MovieCrewTab = (props: {id: string}) => {
                     </TabPanel>
                     <TabPanel value={value} index={whereCrew.indexOf('Compositeur')}>
                         {
-                            (movieListCompositeur === undefined || movieListCompositeur.length === 0) ? <p className="Dashboard_Content_Last_Movies_List_Empty">Aucun film trouvé en tant que compositeur</p> :
+                            (movieListCompositeur === undefined || movieListCompositeur.length === 0) ? <p className="People_Content_Empty">Aucun film trouvé en tant que compositeur</p> :
                             movieListCompositeur.map((movie: MovieInfoCrew) => {
                                 return (
                                     <Movie_Crew_Card id={movie.id} poster_path={movie.poster_path} title={movie.title} release_date={movie.release_date} job={movie.job} />
