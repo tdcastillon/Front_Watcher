@@ -8,6 +8,10 @@ import TabPanel from '../../assets/special_components/TabPanel';
 import MovieTab from './Tab/MovieTab';
 import MovieCrewTab from './Tab/MovieCrewTab';
 
+import logo from '../../assets/logo/TheWatcher.png';
+import TvShowActorTab from './Tab/TvShowActorTab';
+import SerieCrewTab from './Tab/SerieCrewTab';
+
 function People_Page() {
     const actor_id = window.location.pathname.split('/')[2];
 
@@ -42,6 +46,7 @@ function People_Page() {
                     place_of_birth: data.place_of_birth,
                     profile_path: data.profile_path
                 })
+                console.log(data)
             }
         )}
         findActorInfo();
@@ -56,7 +61,7 @@ function People_Page() {
                 <div className='File_Header_Left'>
                     <div className='Actor_Header_Image'>
                         <img 
-                            src={'https://image.tmdb.org/t/p/w500' + actorInfo.profile_path} 
+                            src={(actorInfo.profile_path !== '') ? "https://image.tmdb.org/t/p/w500" + actorInfo.profile_path : logo}
                             alt={actorInfo.name}
                             style={{width: '200px', height: '200px', objectFit: 'contain', margin: '5px', borderRadius: '100%'}}
                         />
@@ -67,15 +72,15 @@ function People_Page() {
                         <h1 className='Actor_Header_Name'>{actorInfo.name}</h1>
                     </div>
                     <div className='Actor_Header_Info'>
-                        <p className='Actor_Header_Info_Birth'><span style={{fontWeight: '700'}}> Date de naissance : </span> {customDate(actorInfo.birthday)} </p>
+                        <p className='Actor_Header_Info_Birth'><span style={{fontWeight: '700'}}> Date de naissance : </span> {(actorInfo.birthday !== null) ? customDate(actorInfo.birthday) : 'Inconnue'}</p>
                         { actorInfo.deathday !== null ? <p className='Actor_Header_Info_Death'> <span style={{fontWeight: '700'}}> Date de décès : </span> {customDate(actorInfo.deathday)}</p> : null }
-                        <p className='Actor_Header_Info_Place'><span style={{fontWeight: '700'}}> Lieu de naissance : </span> {actorInfo.place_of_birth}</p>
+                        <p className='Actor_Header_Info_Place'><span style={{fontWeight: '700'}}> Lieu de naissance : </span> {(actorInfo.place_of_birth !== null) ? actorInfo.place_of_birth : 'Inconnu'}</p>
                     </div>
                 </div>
             </div>
             <div className='File_Content'>
                 <p className='Actor_Biography_Title'>Biographie</p>
-                <p className='Actor_Biography'>{actorInfo.biography}</p>
+                <p className='Actor_Biography' style={{textAlign: 'justify', fontSize: '1em'}}>{(actorInfo.biography !== null) ? actorInfo.biography : 'Aucune biographie disponible'}</p>
             </div>
             <div className='File_Content'>
             <Tabs
@@ -104,13 +109,13 @@ function People_Page() {
                     <MovieTab id={actor_id}/>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <h1>Série</h1> 
+                    <TvShowActorTab actor_id={actor_id}/>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                     <MovieCrewTab id={actor_id}/>
                 </TabPanel>
                 <TabPanel value={value} index={3}>
-                    <h1>Equipe Série</h1>
+                    <SerieCrewTab actor_id={actor_id}/>
                 </TabPanel>
             </div>
         </div>

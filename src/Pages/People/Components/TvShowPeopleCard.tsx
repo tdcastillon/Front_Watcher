@@ -3,11 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardMedia, CardActions, Typography, Button, Box } from "@mui/material";
 import { customDate } from '../../../assets/functions/movie_functions';
 import logo from '../../../assets/logo/TheWatcher.png';
+import { Role } from '../../../assets/interfaces/serie_interfaces';
 
-const Movie_People_Card = (props: {id: string, poster_path: string, title: string, release_date: string, character: string }) => {
+const TvShowPeopleCard = (props: {id: string, poster_path: string, title: string, first_air_date: string, last_air_date: string, status: string,  character: string, episodeCount: number }) => {
     const navigation = useNavigate();
-
-    const [ note, setNote ] = useState(-1);
 
     const getImage = (path: string) => {
         if (path == null) {
@@ -16,32 +15,6 @@ const Movie_People_Card = (props: {id: string, poster_path: string, title: strin
             return "https://image.tmdb.org/t/p/w500" + path;
         }
     }
-
-    useEffect(() => {
-        const getNote = () => {
-            fetch('http://localhost:8080/users/getMovieNote/' + props.id, {
-                method: 'GET',
-                mode: 'cors',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(res => {
-                if (res.status === 200)
-                    res.json().then((data) => {
-                        setNote(data.note);
-                    })
-                else if (res.status === 404) {
-                    setNote(-1);
-                } else if (res.status === 403) {
-                    localStorage.removeItem('token');
-                    navigation('/');
-                }
-            })
-        }
-        getNote();
-    }, []);
 
     return (
         <Box display="inline-block" style={{ margin: '10px 5px' }}>
@@ -58,29 +31,33 @@ const Movie_People_Card = (props: {id: string, poster_path: string, title: strin
                         {props.title}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" style={{ fontWeight: 'bolder' }}>
-                        {(props.character.length > 60) ? props.character.slice(0, 60) + '...' : props.character}
+                        {(props.character.length > 60) ? (props.character.substring(0, 60) + '...') : (props.character)}
                     </Typography>
                     <div style={{height: '20px'}} />
+                    <Typography variant="body2" color="text.secondary">
+                        <span style={{fontWeight: 'bolder'}}> Nombre d'épisodes : </span> {props.episodeCount}
+                    </Typography>
+                    <div style={{height: '10px'}} />
+                    <Typography variant="body2" color="text.secondary">
+                    <span style={{fontWeight: 'bolder'}}> Premier Episode : </span> {customDate(props.first_air_date)}
+                    <div style={{height: '10px'}} />
+                    </Typography>
                     {
-                        (note !== -1) ? (
+                        (props.status === 'Ended') ? (
                             <Typography variant="body2" color="text.secondary">
-                                Note : {note} / 10
+                               <span style={{fontWeight: 'bolder'}}> Dernier Episode : </span> {customDate(props.last_air_date)}
                             </Typography>
                         ) : (
                             <Typography variant="body2" color="text.secondary">
-                                Note : Non noté
+                                <span style={{fontWeight: 'bolder'}}> Dernier Episode : </span> : En cours
                             </Typography>
                         )
                     }
-                    <div style={{height: '20px'}} />
-                    <Typography variant="body2" color="text.secondary">
-                        Sortie : {(props.release_date !== '') ? customDate(props.release_date) : 'Inconnue'}
-                    </Typography>
                 </CardContent>
                 <CardActions>
                     <Button
                         size="small"
-                        onClick={() => navigation('/movie/' + props.id)}
+                        onClick={() => navigation('/serie/' + props.id)}
                     >
                         Afficher plus
                     </Button>
@@ -90,4 +67,4 @@ const Movie_People_Card = (props: {id: string, poster_path: string, title: strin
     )
 }
 
-export default Movie_People_Card;
+export default TvShowPeopleCard;
