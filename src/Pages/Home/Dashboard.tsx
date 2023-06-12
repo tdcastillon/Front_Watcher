@@ -27,7 +27,7 @@ const Dashboard = (props: any) => {
             .then((response) => {
                 if (response.status === 200) {
                     response.json().then((json) => {
-                        setMovies(json);
+                        setMovies(json.reverse().slice(0, 10));
                     })
                 } else if (response.status === 403) {
                     localStorage.removeItem('token');
