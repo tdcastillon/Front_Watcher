@@ -16,7 +16,7 @@ function ActorCard (props: any) {
 
     return (
         <Box display="inline-block" style={{ margin: '10px 5px' }}>
-            <Card sx={{ width: '175px !important', height: '350px !important', flex: 1, backgroundColor: '#F0F0F0', boxShadow: '5px 5px 5px -5px #2d2a32' }}>
+            <Card sx={{ width: '125px !important', height: '350px !important', flex: 1, backgroundColor: '#F0F0F0', boxShadow: '5px 5px 5px -5px #2d2a32' }}>
                 <CardMedia
                     component="img"
                     height="140"
@@ -25,7 +25,7 @@ function ActorCard (props: any) {
                     style={{ objectFit: 'contain', margin: '5px' }}
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="body1" component="div" style={{ fontSize: '1.2em' }}>
                         {props.name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
