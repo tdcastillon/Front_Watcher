@@ -1,4 +1,5 @@
 import { CrewMember } from "../interfaces/crew_interfaces";
+import { CrewSerieMember, Job } from "../interfaces/serie_interfaces";
 
 const identify_principal = (people: any) => {
     let principal_cast : CrewMember[] = [];
@@ -7,6 +8,30 @@ const identify_principal = (people: any) => {
             principal_cast = add_principal(principal_cast, people[i]);
         }
     }
+    return principal_cast;
+}
+
+const crew_identify_principal = (crew: CrewSerieMember[]) => {
+    let principal_cast : CrewSerieMember[] = [];
+    crew.forEach((person: CrewSerieMember) => {
+        let job_array: Job[] = [];
+        person.jobs.forEach((job) => {
+            if ((job.job === 'Director') || (job.job === 'Screenplay') || (job.job === 'Writer') || (job.job === 'Original Music Composer')) {
+                job_array.push({
+                    job: job.job,
+                    episode_count: job.episode_count,
+                })
+            }
+        })
+        if (job_array.length > 0) {
+            principal_cast.push({
+                id: person.id,
+                name: person.name,
+                jobs: job_array,
+                profile_path: person.profile_path,
+            });
+        }
+    })
     return principal_cast;
 }
 
@@ -53,4 +78,4 @@ const FrJob = (job: String) => {
     }
 }
 
-export { identify_principal, FrJob }
+export { identify_principal, FrJob, crew_identify_principal };
