@@ -19,8 +19,8 @@ const pages = [{
     name: 'Recherche des séries',
     path: '/search_series'
   }, {
-    name: 'Recherche Personnes',
-    path: '/search_people'
+    name: 'Recherche utilisateur',
+    path: '/search_user'
   }
 ];
 
