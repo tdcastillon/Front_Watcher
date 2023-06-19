@@ -145,7 +145,8 @@ function Movie_Page() {
                                     fontSize: '1.2em',
                                     width: '20%',
                                     alignSelf: 'center',
-                                }}>
+                                }}
+                            >
                                     {(movieInfoUser.rating === -1) ? 'Ajouter une note' : 'Modifier la note'}
                             </Button>
                             <ReactModal

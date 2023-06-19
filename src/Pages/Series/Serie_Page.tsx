@@ -1,18 +1,20 @@
 import {useEffect, useState } from 'react';
 import { customDate, getRating, getStatus } from '../../assets/functions/movie_functions';
 import '../../assets/styles/Movie_Item.scss';
-import { Tab, Tabs } from '@mui/material';
+import { Button, Tab, Tabs } from '@mui/material';
 import TabPanel from '../../assets/special_components/TabPanel';
 import ActorTab from './Tab/Actor_Serie_Tab';
 import CrewTab from './Tab/CrewTab';
 import { Serie, ActorSeries, CrewSerieMember } from '../../assets/interfaces/serie_interfaces';
-
-const {useNavigate} = require("react-router-dom");
+import TvPopup from './Components/TvPopup';
+import ReactModal from 'react-modal';
+import { useNavigate } from 'react-router-dom';
+import { calculateMed } from '../../assets/functions/serie_function';
 
 const Serie_Page = () => {
-    const serie_id = window.location.href.split('/')[4];
-    const navigation = useNavigate();
 
+    const serie_id = window.location.href.split('/')[4];
+    const navigation = useNavigate()
 
 
     const [ serie, setSerie ] = useState<Serie>({
@@ -27,12 +29,68 @@ const Serie_Page = () => {
         status: '',
     });
 
-    const [rate, setRate] = useState(-1.0);
+    const [rates, setRates] = useState<Array<number>>([]);
+    const [nbSeason, setNbSeason] = useState<number>(0);
+    const [openPopup, setOpenPopup] = useState(false);
+    const [med, setMed] = useState<number>(-1.0)
+    const [markedSeasons, setMarkedSeasons] = useState<number>(0);
     const [value, setValue] = useState(0);
+    const [modify, setModify] = useState<boolean>(false);
 
     const [cast, setCast] = useState<ActorSeries[]>([]);
     const [crew, setCrew] = useState<CrewSerieMember[]>([]);
 
+    const getMed = () => {
+        fetch('http://localhost:8080/users/getTvShowNote/' + serie_id, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        .then((res: Response) => {
+            if (res.status === 200)
+                res.json().then((data) => {
+                    let notes = data.notes;
+                    let marked: Array<number> = []
+                    notes.forEach((note: {season: number, note: number}) => {
+                        if (note.note !== -1.0) {
+                            marked.push(note.note);
+                        }
+                    })
+                    setMarkedSeasons(marked.length);
+                    setMed(calculateMed(marked));
+                    setRates(notes.map((note: {season: number, note: number}) => {
+                        return note.note;
+                    }))
+                    setModify(true)
+                })
+            else if (res.status === 404) {
+                setMed(-1.0);
+                setModify(false)
+                setMarkedSeasons(0);
+                setRates(Array(nbSeason).fill(-1.0));
+            } else if (res.status === 403) {
+                localStorage.removeItem('token');
+                navigation('/');
+            }
+        })
+    }
+
+    const closePopup = () => {
+        getMed();
+        setOpenPopup(false);
+    }
+
+    const alreadyRated = (rates: Array<number>, nbSeason: number) => {
+        let tmp = false;
+        console.log(rates);
+        rates.forEach((rate) => {
+            if (rate >= 0)
+                tmp = true;
+        })
+        return tmp;
+    }
 
     useEffect(() => {
         if ((localStorage.getItem('token') == null) || (localStorage.getItem('token') == '')) {
@@ -48,6 +106,7 @@ const Serie_Page = () => {
             })
             .then(response => response.json())
             .then(data => {
+                setNbSeason(data.number_of_seasons);
                 setSerie(data);
             })
         }
@@ -67,10 +126,11 @@ const Serie_Page = () => {
             })
         }
 
+        getMed();
+
         getTvShow();
-        getTvCredits();
-        
-    }, [navigation])
+        getTvCredits();        
+    }, [navigation, serie_id, med])
 
     return (
         <div className='Home'>
@@ -81,7 +141,7 @@ const Serie_Page = () => {
                 <div className='Header_Right'>
                     <p className='Movie_Title'>{serie.name} </p>
                     <p className='Serie_Seasons'> Nombre de saisons : {serie.number_of_seasons} </p>
-                    <p className='Serie Rating'> Note : {(rate === -1.0) ? 'Non noté' : rate} </p>
+                    <p className='Serie Rating'> Note : {(med === -1.0) ? 'Non noté' : `${med} ${(serie.number_of_seasons === markedSeasons) ? '(Complété)' : `(${markedSeasons} / ${serie.number_of_seasons} saisons notées)`}`} </p>
                     <p className='Movie_Status'> Statut : {getStatus(serie.status, serie.first_air_date)} </p>
                     <p className='Movie_Status'> Date du premier épisode : {customDate(serie.first_air_date)} </p>
                     {
@@ -91,13 +151,68 @@ const Serie_Page = () => {
                     }
                 </div>
             </div>
+            <div className='File_Content'>
+                <div className='Content_Slide'>
+                        <Button
+                            onClick={() => setOpenPopup(true)}
+                            style={{
+                                backgroundColor: 'transparent',
+                                border: 'none',
+                                fontSize: '1.2em',
+                                width: '20%',
+                                alignSelf: 'center',
+                                }}
+                        >
+                            Noter la série
+                        </Button>
+                        <ReactModal
+                            isOpen={openPopup}
+                            contentLabel='Note'
+                            style={{
+                                overlay: {
+                                position: 'fixed',
+                                zIndex: 1020,
+                                top: 0,
+                                left: 0,
+                                width: '100vw',
+                                height: '100vh',
+                                background: 'rgba(255, 255, 255, 0.75)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                padding: 0,
+                                },
+                                content: {
+                                background: 'white',
+                                width: '45rem',
+                                maxWidth: 'calc(100vw - 2rem)',
+                                maxHeight: 'calc(100vh - 2rem)',
+                                overflowY: 'auto',
+                                position: 'relative',
+                                border: '1px solid #ccc',
+                                borderRadius: '0.3rem',
+                                padding: '0.5rem',
+                                }
+                            }}
+                        >
+                            <TvPopup 
+                                rates={rates}
+                                nbSeason={nbSeason}
+                                closePopup={closePopup} 
+                                setRates={setRates}
+                                serie_id={serie_id}
+                                modify={modify}
+                            />
+                        </ReactModal>
+                </div>
+            </div>
             <div className='Movie_Overview' style={{width: '90%', alignSelf: 'center', margin: '15px auto'}}>
                 <p className='Movie_Overview_Title'> Synopsis </p>
                 <p className='Movie_Overview_Text'> {serie.overview} </p>
             </div>
             <Tabs
                 value={value}
-                onChange={(event, newValue) => {
+                onChange={(_event, newValue) => {
                     setValue(newValue);
                 }}
                 indicatorColor="primary"

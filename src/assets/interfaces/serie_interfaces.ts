@@ -24,7 +24,11 @@ export interface CrewSerieMember {
     profile_path: string,
 }
 
-
+export interface SerieInfo{
+    id: string,
+    poster_path: string,
+    name: string
+}
 
 export interface Serie {
     id: number,
@@ -36,4 +40,9 @@ export interface Serie {
     number_of_seasons: number,
     genres: Genre[],
     status: string,
+}
+
+export interface SerieGet {
+    tvshow_id: string,
+    notes: {season: number, note: number}[],
 }

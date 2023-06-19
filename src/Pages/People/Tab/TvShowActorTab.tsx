@@ -37,7 +37,6 @@ const TvShowActorTab = (props : {actor_id: string}) => {
         const findActorInfo = () => {
             fetch('https://api.themoviedb.org/3/person/' + actor_id + '/tv_credits?api_key=76ba0158d0afb618e5ca3a13dd00f4db&language=fr-FR')
             .then(response => response.json()).then(data => {
-                console.log(data.cast)
                 setSeries(data.cast.filter((serie: Role) => (serie.character !== '' && serie.character !== null && serie.character !== undefined && !serie.character.includes('credited') && !serie.character.includes('rchive'))))
             })
         }
