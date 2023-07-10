@@ -106,6 +106,7 @@ const Serie_Page = () => {
             })
             .then(response => response.json())
             .then(data => {
+                console.log(data)
                 setNbSeason(data.number_of_seasons);
                 setSerie(data);
             })

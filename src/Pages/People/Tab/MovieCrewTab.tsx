@@ -63,7 +63,7 @@ const MovieCrewTab = (props: {id: string}) => {
     }, [navigation]);
 
     return (
-        <div className="Movie_Tab">
+        <div className="Movie_Tab" style={{display: 'flex', flexWrap: 'wrap', width: '100%', justifyContent: 'center'}}>
             {
                 (numberMovie === 0) ? <p className="People_Content_Empty" style={{height: '500px !important'}}>Aucun film ajouté</p> :
                 <div>

@@ -44,7 +44,7 @@ const TvShowActorTab = (props : {actor_id: string}) => {
     }, []);
 
     return (
-        <div style={{display: 'flex', flexWrap: 'wrap', margin: 'auto 10px', width: '90%'}}>
+        <div style={{display: 'flex', flexWrap: 'wrap', width: '100%', justifyContent: 'center'}}>
         {
             (series === undefined || series.length === 0) ?
                 <p className="People_Content_Empty" style={{height: '500px !important'}}>
@@ -52,6 +52,7 @@ const TvShowActorTab = (props : {actor_id: string}) => {
                 </p> 
             :
                 series.map((serie: SerieInfo) => {
+                    console.log(serie)
                     return (
                         <div key={serie.id}>
                             <TvShowPeopleCard
@@ -61,7 +62,6 @@ const TvShowActorTab = (props : {actor_id: string}) => {
                                 id={serie.id}
                                 first_air_date={serie.first_air_date}
                                 last_air_date={serie.last_air_date}
-                                status={serie.status}
                                 episodeCount={serie.episode_count}
                             />
                         </div>

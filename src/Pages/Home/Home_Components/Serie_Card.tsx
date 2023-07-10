@@ -60,7 +60,7 @@ const SerieCard = (props: {id: string, note: number}) => {
                         </Typography>
                     </CardContent>
                 <CardActions>
-                    <Button size="small" onClick={() => navigation('/series/' + id)}>Voir plus</Button>
+                    <Button size="small" onClick={() => navigation('/serie/' + id)}>Voir plus</Button>
                 </CardActions>
             </Card>
         </Box>
