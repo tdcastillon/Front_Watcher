@@ -5,10 +5,15 @@ import '../../assets/styles/Dashboard.scss'
 import '../../assets/styles/Home.scss'
 import { MovieGet } from '../../assets/interfaces/movie_interfaces';
 import MovieCard from './Home_Components/MovieCard';
+import { SerieGet } from '../../assets/interfaces/serie_interfaces';
+import { calculateMed } from '../../assets/functions/serie_function';
+import SerieCard from './Home_Components/Serie_Card';
 
 const Dashboard = (props: any) => {
 
     const [movies, setMovies] = useState<Array<MovieGet>>([]);
+    const [series, setSeries] = useState<Array<SerieGet>>([]);
+    const [marked, setMarked] = useState<Array<Array<number>>>([]);
     const navigation = useNavigate();
 
     useEffect(() => {
@@ -36,7 +41,39 @@ const Dashboard = (props: any) => {
             })
         }
 
+        const getSerieNotes = () => {
+            fetch('http://localhost:8080/users/getTvShowsNotes', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+            })
+            .then((response) => {
+                if (response.status === 200) {
+                    response.json().then((json) => {
+                        setSeries(json.reverse().slice(0, 10));
+                        let markeds = [] as Array<Array<number>>;
+                        json.reverse().slice(0, 10).forEach((serie: SerieGet) => {
+                            let _marked = [] as Array<number>;
+                            serie.notes.forEach((note) => {
+                                if (note.note >= 0) {
+                                    _marked.push(note.note);
+                                }
+                            })
+                            markeds.push(_marked);
+                        })
+                        setMarked(markeds);
+                    })
+                } else if (response.status === 403) {
+                    localStorage.removeItem('token');
+                    window.location.reload();
+                }
+            })
+        }
+
         getMovieNotes();
+        getSerieNotes();
     }, [navigation]);
 
     return (
@@ -60,7 +97,16 @@ const Dashboard = (props: any) => {
                 <div className="Dashboard_Content_Last_TV_Shows">
                     <p className="Dashboard_Content_Title">Dernières séries ajoutées : </p>
                     <div className="Dashboard_Content_TV_Shows_List">
-                        <p className="Dashboard_Content_Last_Movies_List_Empty">Aucune série ajoutée</p>
+                        {
+                            (series === undefined || series.length === 0) ? 
+                                <p className="Dashboard_Content_Last_TV_Shows_List_Empty">Aucune série ajoutée</p>
+                            :
+                                series.map((serie: SerieGet, idx: number) => {
+                                    return (
+                                        <SerieCard key={serie.tvshow_id} id={serie.tvshow_id} note={calculateMed(marked[idx])} />
+                                    )
+                                })
+                        }
                     </div>
                 </div>      
             </div>

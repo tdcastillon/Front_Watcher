@@ -37,7 +37,6 @@ const TvShowActorTab = (props : {actor_id: string}) => {
         const findActorInfo = () => {
             fetch('https://api.themoviedb.org/3/person/' + actor_id + '/tv_credits?api_key=76ba0158d0afb618e5ca3a13dd00f4db&language=fr-FR')
             .then(response => response.json()).then(data => {
-                console.log(data.cast)
                 setSeries(data.cast.filter((serie: Role) => (serie.character !== '' && serie.character !== null && serie.character !== undefined && !serie.character.includes('credited') && !serie.character.includes('rchive'))))
             })
         }
@@ -45,7 +44,7 @@ const TvShowActorTab = (props : {actor_id: string}) => {
     }, []);
 
     return (
-        <div style={{display: 'flex', flexWrap: 'wrap', margin: 'auto 10px', width: '90%'}}>
+        <div style={{display: 'flex', flexWrap: 'wrap', width: '100%', justifyContent: 'center'}}>
         {
             (series === undefined || series.length === 0) ?
                 <p className="People_Content_Empty" style={{height: '500px !important'}}>
@@ -53,6 +52,7 @@ const TvShowActorTab = (props : {actor_id: string}) => {
                 </p> 
             :
                 series.map((serie: SerieInfo) => {
+                    console.log(serie)
                     return (
                         <div key={serie.id}>
                             <TvShowPeopleCard
@@ -62,7 +62,6 @@ const TvShowActorTab = (props : {actor_id: string}) => {
                                 id={serie.id}
                                 first_air_date={serie.first_air_date}
                                 last_air_date={serie.last_air_date}
-                                status={serie.status}
                                 episodeCount={serie.episode_count}
                             />
                         </div>

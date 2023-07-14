@@ -46,7 +46,6 @@ function People_Page() {
                     place_of_birth: data.place_of_birth,
                     profile_path: data.profile_path
                 })
-                console.log(data)
             }
         )}
         findActorInfo();

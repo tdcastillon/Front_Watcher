@@ -36,7 +36,7 @@ const SerieCrewTab = (props: {actor_id: string}) => {
 
 
     return (
-        <div className="Movie_Tab">
+        <div className="Movie_Tab" style={{display: 'flex', flexWrap: 'wrap', width: '100%', justifyContent: 'center'}}>
             {
                 (serieList === undefined || serieList.length === 0) ?
                     <p className="People_Content_Empty" style={{height: '500px !important'}}>
